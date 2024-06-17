@@ -51,4 +51,27 @@ print(data[-2])
 
 # 1.6
 def Karatsuba(num1: str, num2: str) -> str:
-    return ""
+    if len(num1) < 2 or len(num2) < 2:
+        return str(int(num1) * int(num2))
+    else:
+        n = max(len(num1), len(num2))
+        m = n // 2
+        a, b = divmod(int(num1), 10**m)
+        c, d = divmod(int(num2), 10**m)
+        ac = int(Karatsuba(str(a), str(c)))
+        bd = int(Karatsuba(str(b), str(d)))
+        adbc = int(Karatsuba(str(a + b), str(c + d))) - ac - bd
+        return str(ac * (10 ** (2 * m)) + adbc * (10**m) + bd)
+
+
+print(
+    Karatsuba(
+        "3141592653589793238462643383279502884197169399375105820974944592",
+        "2718281828459045235360287471352662497757247093699959574966967627",
+    )
+)
+
+print(
+    3141592653589793238462643383279502884197169399375105820974944592
+    * 2718281828459045235360287471352662497757247093699959574966967627
+)
